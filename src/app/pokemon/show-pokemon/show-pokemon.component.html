@@ -1,1 +1,12 @@
-<p>show-pokemon works!</p>
+<div class="row" *ngIf="pokemon">
+  <div class="col-lg-4">
+    <img src="{{ pokemon.sprite }}" alt="{{ pokemon.name }}" class="w-100" />
+  </div>
+  <div class="col-lg-8">
+    <h5 class="text-uppercase">{{ pokemon.name }}</h5>
+    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+    ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus
+    viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
+    lacinia congue felis in faucibus.
+  </div>
+</div>

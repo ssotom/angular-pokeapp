@@ -1,0 +1,24 @@
+.wrapper {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.card-img-top {
+  min-width: 200px;
+  min-height: 200px;
+}
+
+@media (min-width: 576px) {
+  .wrapper {
+    width: 200px;
+    margin: 10px;
+  }
+
+  .wrapper:hover {
+    opacity: 0.6;
+    transform: scale(1.1);
+    transition: all 0.3s;
+  }
+}
