@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
@@ -28,6 +29,7 @@ import { ShowPokemonComponent } from './pokemon/show-pokemon/show-pokemon.compon
     BrowserAnimationsModule,
     AppRoutingModule,
     Ng2SearchPipeModule,
+    NgxChartsModule,
     CollapseModule.forRoot(),
     ModalModule.forRoot()
   ],

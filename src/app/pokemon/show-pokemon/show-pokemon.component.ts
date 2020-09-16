@@ -8,4 +8,14 @@ import { DetailedPokemon } from './../../shared/pokemon';
 })
 export class ShowPokemonComponent {
   @Input() pokemon: DetailedPokemon;
+
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  animations = false;
+
+  colorScheme = {
+    domain: ['#5AA454']
+  };
+
 }

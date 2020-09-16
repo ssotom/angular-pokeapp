@@ -10,3 +10,15 @@
     lacinia congue felis in faucibus.
   </div>
 </div>
+
+<div #chart class="chart">
+  <ngx-charts-bar-vertical
+    [view]="[chart.offsetWidth, chart.offsetHeigth]"
+    [results]="pokemon.stats"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [scheme]="colorScheme"
+    [animations]="animations"
+  >
+  </ngx-charts-bar-vertical>
+</div>

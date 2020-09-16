@@ -15,6 +15,10 @@ export class PokemonAbility {
   ability: NamedAPIResource;
 }
 
+export class PokemonStat {
+  constructor(private name: string, private value: number) { }
+}
+
 export class DetailedPokemon {
   id: number;
   name: string;
@@ -23,14 +27,18 @@ export class DetailedPokemon {
   height: number;
   weight: number;
   abilities: PokemonAbility[];
+  stats: PokemonStat[];
 
-  constructor(response: any) {
-    this.id = response.id;
-    this.name = response.name;
-    this.sprite = environment.baseSpriteUrl + this.id + '.png';
-    this.base_experience = response.base_experience;
-    this.height = response.height;
-    this.weight = response.weight;
-    this.abilities = response.abilities;
+  constructor(response?: any) {
+    if (response) {
+      this.id = response.id;
+      this.name = response.name;
+      this.sprite = environment.baseSpriteUrl + this.id + '.png';
+      this.base_experience = response.base_experience;
+      this.height = response.height;
+      this.weight = response.weight;
+      this.abilities = response.abilities;
+      this.stats = response.stats.map(stat => new PokemonStat(stat.stat.name, stat.base_stat));
+    }
   }
 }
