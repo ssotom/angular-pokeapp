@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-6">
+    <img src="{{ pokemon1.sprite }}" class="w-100" alt="{{ pokemon1.name }}" />
+  </div>
+  <div class="col-6">
+    <img src="{{ pokemon2.sprite }}" class="w-100" alt="{{ pokemon2.name }}" />
+  </div>
+</div>
+<div class="row text-center">
+  <div class="col-5">
+    <h6 class="text-uppercase">{{ pokemon1.name }}</h6>
+    <p class="my-3">{{ pokemon1.height }}m</p>
+    <p class="my-3">{{ pokemon1.weight }}kg</p>
+    <ul class="list-group list-group">
+      <li class="list-group-item" *ngFor="let ability of pokemon1.abilities">
+        {{ ability.ability.name }}
+      </li>
+    </ul>
+  </div>
+  <div class="col-2">
+    <h6 class="text-uppercase">VS</h6>
+    <h6 class="my-3">Height</h6>
+    <h6 class="my-3">Weight</h6>
+    <h6 class="my-3">Abilities</h6>
+  </div>
+  <div class="col-5">
+    <h6 class="text-uppercase">{{ pokemon2.name }}</h6>
+    <p class="my-3">{{ pokemon2.height }}m</p>
+    <p class="my-3">{{ pokemon2.weight }}kg</p>
+    <ul class="list-group list-group">
+      <li class="list-group-item" *ngFor="let ability of pokemon2.abilities">
+        {{ ability.ability.name }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div #chart class="chart">
+  <ngx-charts-bar-vertical-2d
+    [view]="[chart.offsetWidth, chart.offsetHeigth]"
+    [results]="data"
+    [legendTitle]="legendTitle"
+    [legend]="showLegend"
+    [legendPosition]="legendPosition"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [scheme]="colorScheme"
+    [animations]="animations"
+  >
+  </ngx-charts-bar-vertical-2d>
+</div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DetailedPokemon } from './../../shared/pokemon';
 
 @Component({
@@ -8,6 +8,7 @@ import { DetailedPokemon } from './../../shared/pokemon';
 })
 export class ShowPokemonComponent {
   @Input() pokemon: DetailedPokemon;
+  @Output() comparePokemon = new EventEmitter();
 
   // options
   showXAxis = true;
@@ -17,5 +18,9 @@ export class ShowPokemonComponent {
   colorScheme = {
     domain: ['#5AA454']
   };
+
+  compareTo(): void {
+    this.comparePokemon.emit();
+  }
 
 }

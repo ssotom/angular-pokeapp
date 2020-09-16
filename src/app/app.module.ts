@@ -14,13 +14,15 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListPokemonsComponent } from './pokemon/list-pokemons/list-pokemons.component';
 import { ShowPokemonComponent } from './pokemon/show-pokemon/show-pokemon.component';
+import { ComparePokemonsComponent } from './pokemon/compare-pokemons/compare-pokemons.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     ListPokemonsComponent,
-    ShowPokemonComponent
+    ShowPokemonComponent,
+    ComparePokemonsComponent
   ],
   imports: [
     BrowserModule,

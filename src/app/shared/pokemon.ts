@@ -19,6 +19,11 @@ export class PokemonStat {
   constructor(private name: string, private value: number) { }
 }
 
+export class PokemonType {
+  slot: number;
+  type: NamedAPIResource;
+}
+
 export class DetailedPokemon {
   id: number;
   name: string;
@@ -27,6 +32,7 @@ export class DetailedPokemon {
   height: number;
   weight: number;
   abilities: PokemonAbility[];
+  types: PokemonType[];
   stats: PokemonStat[];
 
   constructor(response?: any) {
@@ -38,6 +44,7 @@ export class DetailedPokemon {
       this.height = response.height;
       this.weight = response.weight;
       this.abilities = response.abilities;
+      this.types = response.types;
       this.stats = response.stats.map(stat => new PokemonStat(stat.stat.name, stat.base_stat));
     }
   }

@@ -12,7 +12,10 @@ export class ListPokemonsComponent implements OnInit {
   pokemons: Pokemon[] = [];
   isLoading = false;
   searchText: string;
+  modal: ModalDirective;
+  comparePokemon: boolean;
   selectedPokemon: DetailedPokemon;
+  selectedPokemon2: DetailedPokemon;
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -29,12 +32,29 @@ export class ListPokemonsComponent implements OnInit {
 
   loadPokemon(id: number): void {
     this.pokemonService.getById(id)
-      .subscribe(pokemon => this.selectedPokemon = pokemon);
+      .subscribe(pokemon => {
+        if (this.comparePokemon) {
+          this.selectedPokemon2 = pokemon;
+        } else {
+          this.selectedPokemon = pokemon;
+        }
+      });
   }
 
   openModal(modal: ModalDirective, selectedPokemonId?: number): any {
     this.loadPokemon(selectedPokemonId);
+    this.modal = modal;
     modal.show();
+  }
+
+  closeModal(): void {
+    this.modal.hide();
+    this.comparePokemon = false;
+  }
+
+  compareTo(): void {
+    this.modal.hide();
+    this.comparePokemon = true;
   }
 
 }
