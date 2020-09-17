@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Pokemon, DetailedPokemon } from './../../shared/pokemon';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { select, Store } from '@ngrx/store';
+import { AppState } from './../../app.state';
+import { load } from 'src/app/actions/pokemon.actions';
 
 @Component({
   selector: 'app-list-pokemons',
@@ -13,13 +16,26 @@ export class ListPokemonsComponent implements OnInit {
   isLoading = false;
   error: string;
   searchText: string;
+  pokemons2: Map<number, DetailedPokemon>;
 
   modal: ModalDirective;
   comparePokemon: boolean;
   selectedPokemon = new DetailedPokemon();
   selectedPokemon2 = new DetailedPokemon();
 
-  constructor(private pokemonService: PokemonService) { }
+  constructor(private pokemonService: PokemonService, private store: Store<AppState>) {
+    store.pipe(select('pokemons')).subscribe(
+      pokemons => {
+        console.log('1', pokemons);
+
+        if (this.comparePokemon) {
+          this.selectedPokemon2 = pokemons.lastPokemon;
+        } else {
+          this.selectedPokemon = pokemons.lastPokemon;
+        }
+      }
+    );
+  }
 
   ngOnInit(): void {
     this.loadMore();
@@ -38,17 +54,7 @@ export class ListPokemonsComponent implements OnInit {
   }
 
   loadPokemon(id: number): void {
-    this.pokemonService.getById(id)
-      .subscribe(
-        pokemon => {
-          if (this.comparePokemon) {
-            this.selectedPokemon2 = pokemon;
-          } else {
-            this.selectedPokemon = pokemon;
-          }
-        },
-        error => this.error = error
-      );
+    this.store.dispatch(load({ id }));
   }
 
   openModal(modal: ModalDirective, selectedPokemonId?: number): any {

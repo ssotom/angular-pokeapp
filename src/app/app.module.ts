@@ -15,6 +15,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ListPokemonsComponent } from './pokemon/list-pokemons/list-pokemons.component';
 import { ShowPokemonComponent } from './pokemon/show-pokemon/show-pokemon.component';
 import { ComparePokemonsComponent } from './pokemon/compare-pokemons/compare-pokemons.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { MovieEffects } from './effects/pokemon.effects';
+
+import { pokemonReducer } from './reducers/pokemon.reducer';
 
 @NgModule({
   declarations: [
@@ -33,7 +39,9 @@ import { ComparePokemonsComponent } from './pokemon/compare-pokemons/compare-pok
     Ng2SearchPipeModule,
     NgxChartsModule,
     CollapseModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    StoreModule.forRoot({ pokemons: pokemonReducer }),
+    EffectsModule.forRoot([MovieEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
