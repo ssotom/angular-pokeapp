@@ -10,13 +10,12 @@ export class Pokemon {
 }
 
 export class PokemonAbility {
-  is_hidden: boolean;
   slot: number;
   ability: NamedAPIResource;
 }
 
 export class PokemonStat {
-  constructor(private name: string, private value: number) { }
+  constructor(public name: string, public value: number) { }
 }
 
 export class PokemonType {
@@ -28,7 +27,6 @@ export class DetailedPokemon {
   id: number;
   name: string;
   sprite: string;
-  base_experience: number;
   height: number;
   weight: number;
   abilities: PokemonAbility[];
@@ -40,7 +38,6 @@ export class DetailedPokemon {
       this.id = response.id;
       this.name = response.name;
       this.sprite = environment.baseSpriteUrl + this.id + '.png';
-      this.base_experience = response.base_experience;
       this.height = response.height;
       this.weight = response.weight;
       this.abilities = response.abilities;
