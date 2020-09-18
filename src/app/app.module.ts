@@ -9,18 +9,17 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { PokemonEffects } from './effects/pokemon.effects';
+import { pokemonReducer } from './reducers/pokemon.reducer';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListPokemonsComponent } from './pokemon/list-pokemons/list-pokemons.component';
 import { ShowPokemonComponent } from './pokemon/show-pokemon/show-pokemon.component';
 import { ComparePokemonsComponent } from './pokemon/compare-pokemons/compare-pokemons.component';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-
-import { MovieEffects } from './effects/pokemon.effects';
-
-import { pokemonReducer } from './reducers/pokemon.reducer';
 
 @NgModule({
   declarations: [
@@ -41,7 +40,7 @@ import { pokemonReducer } from './reducers/pokemon.reducer';
     CollapseModule.forRoot(),
     ModalModule.forRoot(),
     StoreModule.forRoot({ pokemons: pokemonReducer }),
-    EffectsModule.forRoot([MovieEffects])
+    EffectsModule.forRoot([PokemonEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

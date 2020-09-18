@@ -1,8 +1,12 @@
-import { DetailedPokemon, Pokemon } from './shared/pokemon';
+import { createSelector } from '@ngrx/store';
+import { DetailedPokemon } from './shared/pokemon';
 
 export interface AppState {
-    readonly pokemons: {
-        lastPokemon: DetailedPokemon
-        pokemons: Map<number, DetailedPokemon>;
-    };
+    pokemons: Map<number, DetailedPokemon>;
 }
+
+export const selectPokemon = () =>
+    createSelector(
+        (state: AppState) => state.pokemons,
+        (pokemons, props) => pokemons.get(props.id)
+    );

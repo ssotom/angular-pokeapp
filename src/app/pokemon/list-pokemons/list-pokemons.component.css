@@ -21,6 +21,11 @@
   display: block;
 }
 
+.search {
+  margin: 0 auto;
+  height: 50px;
+}
+
 @media (min-width: 576px) {
   .wrapper {
     width: 200px;
