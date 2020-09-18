@@ -12,8 +12,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+import { reducers } from './app.state';
 import { PokemonEffects } from './effects/pokemon.effects';
-import { pokemonReducer } from './reducers/pokemon.reducer';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -39,7 +39,7 @@ import { ComparePokemonsComponent } from './pokemon/compare-pokemons/compare-pok
     NgxChartsModule,
     CollapseModule.forRoot(),
     ModalModule.forRoot(),
-    StoreModule.forRoot({ pokemons: pokemonReducer }),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([PokemonEffects])
   ],
   providers: [],

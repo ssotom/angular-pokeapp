@@ -14,8 +14,8 @@ import { load } from 'src/app/actions/pokemon.actions';
 export class ListPokemonsComponent implements OnInit {
   pokemons: Pokemon[] = [];
   isLoading = false;
-  error: string;
   searchText: string;
+  error: string;
 
   modal: ModalDirective;
   comparePokemon: boolean;
@@ -30,14 +30,13 @@ export class ListPokemonsComponent implements OnInit {
 
   loadMore(): void {
     this.isLoading = true;
-    this.pokemonService.getAll(this.pokemons.length)
-      .subscribe(
-        pokemons => {
-          this.pokemons = this.pokemons.concat(pokemons);
-          this.isLoading = false;
-        },
-        error => this.error = error
-      );
+    this.pokemonService.getAll(this.pokemons.length).subscribe(
+      pokemons => {
+        this.pokemons = this.pokemons.concat(pokemons);
+        this.isLoading = false;
+      },
+      error => this.error = error
+    );
   }
 
   loadPokemon(id: number): void {

@@ -20,10 +20,9 @@ export class PokemonService {
   getAll(offset: number): Observable<Pokemon[]> {
     return this.http.get<NamedAPIResourceList>(`${this.baseUrl}?offset=${offset}&limit=${this.limit}`)
       .pipe(
-        map(response => {
-          return response.results
-            .map((resource, index) => new Pokemon(offset + index + 1, resource.name));
-        }),
+        map(response => response.results.map(
+          (resource, index) => new Pokemon(offset + index + 1, resource.name)
+        )),
         catchError(this.errorResponseService.handleError)
       );
   }
