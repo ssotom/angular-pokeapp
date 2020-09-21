@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Pokemon, DetailedPokemon } from './../../shared/pokemon';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -17,10 +17,11 @@ export class ListPokemonsComponent implements OnInit {
   searchText: string;
   error: string;
 
-  modal: ModalDirective;
   comparePokemon: boolean;
   selectedPokemon: DetailedPokemon;
   selectedPokemon2: DetailedPokemon;
+
+  @ViewChild('lgModal') modal: ModalDirective;
 
   constructor(private pokemonService: PokemonService, private store: Store<AppState>) { }
 
@@ -52,10 +53,9 @@ export class ListPokemonsComponent implements OnInit {
     );
   }
 
-  openModal(modal: ModalDirective, selectedPokemonId?: number): any {
+  openModal(selectedPokemonId?: number): any {
     this.loadPokemon(selectedPokemonId);
-    this.modal = modal;
-    modal.show();
+    this.modal.show();
   }
 
   closeModal(): void {

@@ -4,7 +4,7 @@ import { loadSuccess } from './../actions/pokemon.actions';
 
 export const initialState = new Map<number, DetailedPokemon>();
 
-const _pokemonReducer = createReducer(
+const pokemonReducerFunction = createReducer(
     initialState,
     on(
         loadSuccess,
@@ -12,6 +12,6 @@ const _pokemonReducer = createReducer(
     )
 );
 
-export function pokemonReducer(state, action) {
-    return _pokemonReducer(state, action);
+export function pokemonReducer(state, action): Map<number, DetailedPokemon> {
+    return pokemonReducerFunction(state, action);
 }
