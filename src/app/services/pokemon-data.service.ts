@@ -50,8 +50,4 @@ export class PokemonDataServices extends DefaultDataService<Pokemon> {
         catchError(this.errorResponseService.handleError)
       );
   }
-
-  private getUrlWithParams(queryParams: QueryParams) {
-    queryParams;
-  }
 }

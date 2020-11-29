@@ -2,10 +2,8 @@ import { PokemonEntityService } from './../../services/pokemon-entity.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Pokemon, DetailedPokemon } from './../../shared/pokemon';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { Store } from '@ngrx/store';
-import { AppState } from './../../app.state';
-import { tap, map, first } from 'rxjs/operators';
-import { Observable, pipe } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-pokemons',
@@ -21,15 +19,12 @@ export class ListPokemonsComponent implements OnInit {
   error: string;
 
   comparePokemon: boolean;
-  selectedPokemon: DetailedPokemon;
-  selectedPokemon2: DetailedPokemon;
+  selectedPokemon: Pokemon;
+  selectedPokemon2: Pokemon;
 
   @ViewChild('lgModal') modal: ModalDirective;
 
-  constructor(
-    private pokemonService: PokemonEntityService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private pokemonService: PokemonEntityService) {}
 
   ngOnInit(): void {
     this.loading$ = this.pokemonService.loading$;
@@ -56,7 +51,7 @@ export class ListPokemonsComponent implements OnInit {
     });
   }
 
-  loadPokemon(id: number): void {
+  loadPokemon(pokemon: Pokemon): void {
     // this.store.dispatch(load({ id }));
     // this.store.pipe(select(selectPokemon(), { id })).subscribe((pokemon) => {
     //   if (this.comparePokemon) {
@@ -67,8 +62,12 @@ export class ListPokemonsComponent implements OnInit {
     // });
   }
 
-  openModal(selectedPokemonId?: number): any {
-    this.loadPokemon(selectedPokemonId);
+  openModal(pokemon: Pokemon): void {
+    if (this.comparePokemon) {
+      this.selectedPokemon2 = pokemon;
+    } else {
+      this.selectedPokemon = pokemon;
+    }
     this.modal.show();
   }
 

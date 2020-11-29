@@ -3,11 +3,11 @@ import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory
 } from '@ngrx/data';
-import { Pokemon } from '../shared/pokemon';
+import { DetailedPokemon } from './../shared/pokemon';
 
 @Injectable()
-export class PokemonEntityService extends EntityCollectionServiceBase<Pokemon> {
+export class DetailedPokemonEntityService extends EntityCollectionServiceBase<DetailedPokemon> {
   constructor(serviceElementsFactory: EntityCollectionServiceElementsFactory) {
-    super('Pokemon', serviceElementsFactory);
+    super('DetailedPokemon', serviceElementsFactory);
   }
 }

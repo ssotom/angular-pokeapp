@@ -20,7 +20,7 @@ export class PokemonAbility {
 }
 
 export class PokemonStat {
-  constructor(public name: string, public value: number) { }
+  constructor(public name: string, public value: number) {}
 }
 
 export class DetailedPokemon {
@@ -42,7 +42,9 @@ export class DetailedPokemon {
       this.types = response.types;
       this.abilities = response.abilities;
       this.sprite = environment.baseSpriteUrl + this.id + '.png';
-      this.stats = response.stats.map(stat => new PokemonStat(stat.stat.name, stat.base_stat));
+      this.stats = response.stats.map(
+        (stat) => new PokemonStat(stat.stat.name, stat.base_stat)
+      );
     }
   }
 }

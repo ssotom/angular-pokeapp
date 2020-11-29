@@ -1,5 +1,4 @@
-import { PokemonDataServices } from './services/pokemon-data.service';
-import { PokemonEntityService } from './services/pokemon-entity.service';
+import { EntityStoreModule } from './entity-store.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,12 +15,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  EntityDataModule,
-  EntityDataService,
-  EntityDefinitionService,
-  EntityMetadataMap
-} from '@ngrx/data';
+import { EntityDataModule } from '@ngrx/data';
 
 import { reducers } from './app.state';
 
@@ -30,11 +24,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ListPokemonsComponent } from './pokemon/list-pokemons/list-pokemons.component';
 import { ShowPokemonComponent } from './pokemon/show-pokemon/show-pokemon.component';
 import { ComparePokemonsComponent } from './pokemon/compare-pokemons/compare-pokemons.component';
-import { entityConfig } from './entity-metadata';
-
-const entityMetadata: EntityMetadataMap = {
-  Pokemon: {}
-};
 
 @NgModule({
   declarations: [
@@ -60,18 +49,10 @@ const entityMetadata: EntityMetadataMap = {
       logOnly: environment.production
     }),
     EffectsModule.forRoot([]),
-    EntityDataModule.forRoot({})
+    EntityDataModule.forRoot({}),
+    EntityStoreModule
   ],
-  providers: [PokemonEntityService, PokemonDataServices],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  constructor(
-    private eds: EntityDefinitionService,
-    private entityDataService: EntityDataService,
-    private pokemonDataServices: PokemonDataServices
-  ) {
-    eds.registerMetadataMap(entityMetadata);
-    entityDataService.registerService('Pokemon', pokemonDataServices);
-  }
-}
+export class AppModule {}

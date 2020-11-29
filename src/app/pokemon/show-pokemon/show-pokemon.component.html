@@ -1,43 +1,45 @@
-<div class="row" *ngIf="pokemon">
-  <div class="col-lg-4">
-    <img src="{{ pokemon.sprite }}" alt="{{ pokemon.name }}" class="w-100" />
-    <button
-      type="button"
-      (click)="compareTo()"
-      class="btn btn-secondary btn-block float-left"
-    >
-      Compare to...
-    </button>
+<div *ngIf="(pokemon$ | async) as pokemon">
+  <div class="row">
+    <div class="col-lg-4">
+      <img src="{{ pokemon.sprite }}" alt="{{ pokemon.name }}" class="w-100" />
+      <button
+        type="button"
+        (click)="compareTo()"
+        class="btn btn-secondary btn-block float-left"
+      >
+        Compare to...
+      </button>
+    </div>
+    <div class="col-lg-8">
+      <h5 class="text-uppercase my-4">{{ pokemon.name }}</h5>
+      <h6 class="d-inline-block">Height:</h6>
+      {{ pokemon.height }}m
+      <h6 class="d-inline-block ml-4">Weight:</h6>
+      {{ pokemon.weight }}kg
+      <h6 class="mt-4">Types</h6>
+      <ul class="list-group list-group-horizontal-sm">
+        <li class="list-group-item" *ngFor="let type of pokemon.types">
+          {{ type.type.name }}
+        </li>
+      </ul>
+      <h6 class="mt-4">Abilities</h6>
+      <ul class="list-group list-group-horizontal-sm">
+        <li class="list-group-item" *ngFor="let ability of pokemon.abilities">
+          {{ ability.ability.name }}
+        </li>
+      </ul>
+    </div>
   </div>
-  <div class="col-lg-8">
-    <h5 class="text-uppercase my-4">{{ pokemon.name }}</h5>
-    <h6 class="d-inline-block">Height:</h6>
-    {{ pokemon.height }}m
-    <h6 class="d-inline-block ml-4">Weight:</h6>
-    {{ pokemon.weight }}kg
-    <h6 class="mt-4">Types</h6>
-    <ul class="list-group list-group-horizontal-sm">
-      <li class="list-group-item" *ngFor="let type of pokemon.types">
-        {{ type.type.name }}
-      </li>
-    </ul>
-    <h6 class="mt-4">Abilities</h6>
-    <ul class="list-group list-group-horizontal-sm">
-      <li class="list-group-item" *ngFor="let ability of pokemon.abilities">
-        {{ ability.ability.name }}
-      </li>
-    </ul>
-  </div>
-</div>
 
-<div #chart class="chart">
-  <ngx-charts-bar-vertical
-    [view]="[chart.offsetWidth, chart.offsetHeigth]"
-    [results]="pokemon.stats"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [scheme]="colorScheme"
-    [animations]="animations"
-  >
-  </ngx-charts-bar-vertical>
+  <div #chart class="chart">
+    <ngx-charts-bar-vertical
+      [view]="[chart.offsetWidth, chart.offsetHeigth]"
+      [results]="pokemon.stats"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [scheme]="colorScheme"
+      [animations]="animations"
+    >
+    </ngx-charts-bar-vertical>
+  </div>
 </div>

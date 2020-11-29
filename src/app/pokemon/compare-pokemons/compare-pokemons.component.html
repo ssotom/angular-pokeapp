@@ -1,62 +1,66 @@
-<div class="row">
-  <div class="col-6">
-    <img
-      src="{{ pokemon1.sprite }}"
-      class="center-image"
-      alt="{{ pokemon1.name }}"
-    />
-  </div>
-  <div class="col-6">
-    <img
-      src="{{ pokemon2.sprite }}"
-      class="center-image"
-      alt="{{ pokemon2.name }}"
-    />
-  </div>
-</div>
+<div *ngIf="(pokemon1$ | async) as pokemon1">
+  <div *ngIf="(pokemon2$ | async) as pokemon2">
+    <div class="row">
+      <div class="col-6">
+        <img
+          src="{{ pokemon1.sprite }}"
+          class="center-image"
+          alt="{{ pokemon1.name }}"
+        />
+      </div>
+      <div class="col-6">
+        <img
+          src="{{ pokemon2.sprite }}"
+          class="center-image"
+          alt="{{ pokemon2.name }}"
+        />
+      </div>
+    </div>
 
-<div class="row text-center">
-  <div class="col-5">
-    <h6 class="text-uppercase">{{ pokemon1.name }}</h6>
-    <p class="my-3">{{ pokemon1.height }}m</p>
-    <p class="my-3">{{ pokemon1.weight }}kg</p>
-    <ul class="list-group list-group">
-      <li class="list-group-item" *ngFor="let ability of pokemon1.abilities">
-        {{ ability.ability.name }}
-      </li>
-    </ul>
-  </div>
+    <div class="row text-center">
+      <div class="col-5">
+        <h6 class="text-uppercase">{{ pokemon1.name }}</h6>
+        <p class="my-3">{{ pokemon1.height }}m</p>
+        <p class="my-3">{{ pokemon1.weight }}kg</p>
+        <ul class="list-group list-group">
+          <li class="list-group-item" *ngFor="let ability of pokemon1.abilities">
+            {{ ability.ability.name }}
+          </li>
+        </ul>
+      </div>
 
-  <div class="col-2 font-weight-bold">
-    <p>VS</p>
-    <p class="my-3">Height</p>
-    <p class="my-3">Weight</p>
-    <p class="my-3">Abilities</p>
-  </div>
+      <div class="col-2 font-weight-bold">
+        <p>VS</p>
+        <p class="my-3">Height</p>
+        <p class="my-3">Weight</p>
+        <p class="my-3">Abilities</p>
+      </div>
 
-  <div class="col-5">
-    <h6 class="text-uppercase">{{ pokemon2.name }}</h6>
-    <p class="my-3">{{ pokemon2.height }}m</p>
-    <p class="my-3">{{ pokemon2.weight }}kg</p>
-    <ul class="list-group list-group">
-      <li class="list-group-item" *ngFor="let ability of pokemon2.abilities">
-        {{ ability.ability.name }}
-      </li>
-    </ul>
-  </div>
-</div>
+      <div class="col-5">
+        <h6 class="text-uppercase">{{ pokemon2.name }}</h6>
+        <p class="my-3">{{ pokemon2.height }}m</p>
+        <p class="my-3">{{ pokemon2.weight }}kg</p>
+        <ul class="list-group list-group">
+          <li class="list-group-item" *ngFor="let ability of pokemon2.abilities">
+            {{ ability.ability.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
 
-<div #chart class="chart">
-  <ngx-charts-bar-vertical-2d
-    [view]="[chart.offsetWidth, chart.offsetHeigth]"
-    [results]="data"
-    [legendTitle]="legendTitle"
-    [legend]="showLegend"
-    [legendPosition]="legendPosition"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [scheme]="colorScheme"
-    [animations]="animations"
-  >
-  </ngx-charts-bar-vertical-2d>
+    <div #chart class="chart">
+      <ngx-charts-bar-vertical-2d
+        [view]="[chart.offsetWidth, chart.offsetHeigth]"
+        [results]="data"
+        [legendTitle]="legendTitle"
+        [legend]="showLegend"
+        [legendPosition]="legendPosition"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [scheme]="colorScheme"
+        [animations]="animations"
+      >
+      </ngx-charts-bar-vertical-2d>
+    </div>
+  </div>
 </div>

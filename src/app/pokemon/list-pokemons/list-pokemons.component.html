@@ -13,10 +13,9 @@
   <div class="d-flex flex-wrap justify-content-center mt-2">
     <div
       class="wrapper"
-      (click)="openModal(pokemon.id)"
-      *ngFor="let pokemon of pokemons$ | async"
+      (click)="openModal(pokemon)"
+      *ngFor="let pokemon of pokemons$ | async | filter: searchText"
     >
-    <!-- *ngFor="let pokemon of pokemons$ | filter: searchText | async" -->
       <div class="card text-center shadow">
         <img
           src="{{ pokemon.sprite }}"
@@ -69,14 +68,14 @@
       <div class="modal-body pt-0">
         <app-show-pokemon
           *ngIf="!comparePokemon && selectedPokemon"
-          [pokemon]="selectedPokemon"
+          [id]="selectedPokemon.id"
           (comparePokemon)="compareTo()"
         ></app-show-pokemon>
 
         <app-compare-pokemons
           *ngIf="comparePokemon && selectedPokemon2"
-          [pokemon1]="selectedPokemon"
-          [pokemon2]="selectedPokemon2"
+          [id1]="selectedPokemon.id"
+          [id2]="selectedPokemon2.id"
         ></app-compare-pokemons>
 
         <div class="d-flex justify-content-center" *ngIf="!selectedPokemon">
