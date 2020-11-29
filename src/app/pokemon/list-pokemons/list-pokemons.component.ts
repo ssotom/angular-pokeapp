@@ -1,10 +1,11 @@
+import { PokemonEntityService } from './../../services/pokemon-entity.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Pokemon, DetailedPokemon } from './../../shared/pokemon';
-import { PokemonService } from 'src/app/services/pokemon.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { select, Store } from '@ngrx/store';
-import { AppState, selectPokemon } from './../../app.state';
-import { load } from 'src/app/actions/pokemon.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from './../../app.state';
+import { tap, map, first } from 'rxjs/operators';
+import { Observable, pipe } from 'rxjs';
 
 @Component({
   selector: 'app-list-pokemons',
@@ -12,7 +13,9 @@ import { load } from 'src/app/actions/pokemon.actions';
   styleUrls: ['./list-pokemons.component.css']
 })
 export class ListPokemonsComponent implements OnInit {
-  pokemons: Pokemon[] = [];
+  pokemons$: Observable<Pokemon[]>;
+  offset = 0;
+  loading$: Observable<boolean>;
   isLoading = false;
   searchText: string;
   error: string;
@@ -23,34 +26,45 @@ export class ListPokemonsComponent implements OnInit {
 
   @ViewChild('lgModal') modal: ModalDirective;
 
-  constructor(private pokemonService: PokemonService, private store: Store<AppState>) { }
+  constructor(
+    private pokemonService: PokemonEntityService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
-    this.loadMore();
+    this.loading$ = this.pokemonService.loading$;
+    this.pokemonService.loading$
+      .pipe(tap((isLoading) => (this.isLoading = isLoading)))
+      .subscribe();
+
+    this.pokemonService.entities$
+      .pipe(tap((pokemons) => (this.offset = pokemons.length)))
+      .subscribe();
+
+    this.pokemons$ = this.pokemonService.entities$.pipe(
+      tap(() => {
+        if (this.offset == 0) {
+          this.loadMore();
+        }
+      })
+    );
   }
 
   loadMore(): void {
-    this.isLoading = true;
-    this.pokemonService.getAll(this.pokemons.length).subscribe(
-      pokemons => {
-        this.pokemons = this.pokemons.concat(pokemons);
-        this.isLoading = false;
-      },
-      error => this.error = error
-    );
+    this.pokemonService.getWithQuery({
+      offset: this.offset.toString()
+    });
   }
 
   loadPokemon(id: number): void {
-    this.store.dispatch(load({ id }));
-    this.store.pipe(select(selectPokemon(), { id })).subscribe(
-      pokemon => {
-        if (this.comparePokemon) {
-          this.selectedPokemon2 = pokemon;
-        } else {
-          this.selectedPokemon = pokemon;
-        }
-      }
-    );
+    // this.store.dispatch(load({ id }));
+    // this.store.pipe(select(selectPokemon(), { id })).subscribe((pokemon) => {
+    //   if (this.comparePokemon) {
+    //     this.selectedPokemon2 = pokemon;
+    //   } else {
+    //     this.selectedPokemon = pokemon;
+    //   }
+    // });
   }
 
   openModal(selectedPokemonId?: number): any {
@@ -67,5 +81,4 @@ export class ListPokemonsComponent implements OnInit {
     this.modal.hide();
     this.comparePokemon = true;
   }
-
 }

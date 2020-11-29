@@ -1,3 +1,5 @@
+import { PokemonDataServices } from './services/pokemon-data.service';
+import { PokemonEntityService } from './services/pokemon-entity.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,17 +11,30 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
+
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import {
+  EntityDataModule,
+  EntityDataService,
+  EntityDefinitionService,
+  EntityMetadataMap
+} from '@ngrx/data';
 
 import { reducers } from './app.state';
-import { PokemonEffects } from './effects/pokemon.effects';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListPokemonsComponent } from './pokemon/list-pokemons/list-pokemons.component';
 import { ShowPokemonComponent } from './pokemon/show-pokemon/show-pokemon.component';
 import { ComparePokemonsComponent } from './pokemon/compare-pokemons/compare-pokemons.component';
+import { entityConfig } from './entity-metadata';
+
+const entityMetadata: EntityMetadataMap = {
+  Pokemon: {}
+};
 
 @NgModule({
   declarations: [
@@ -40,9 +55,23 @@ import { ComparePokemonsComponent } from './pokemon/compare-pokemons/compare-pok
     CollapseModule.forRoot(),
     ModalModule.forRoot(),
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([PokemonEffects])
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
+    EffectsModule.forRoot([]),
+    EntityDataModule.forRoot({})
   ],
-  providers: [],
+  providers: [PokemonEntityService, PokemonDataServices],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    private eds: EntityDefinitionService,
+    private entityDataService: EntityDataService,
+    private pokemonDataServices: PokemonDataServices
+  ) {
+    eds.registerMetadataMap(entityMetadata);
+    entityDataService.registerService('Pokemon', pokemonDataServices);
+  }
+}

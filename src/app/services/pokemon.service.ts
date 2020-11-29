@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
@@ -15,24 +14,30 @@ export class PokemonService {
   private limit = environment.amountToLoad;
   private baseUrl = environment.baseUrl + 'pokemon';
 
-  constructor(private http: HttpClient, private errorResponseService: ErrorResponseService) { }
+  constructor(
+    private http: HttpClient,
+    private errorResponseService: ErrorResponseService
+  ) {}
 
   getAll(offset: number): Observable<Pokemon[]> {
-    return this.http.get<NamedAPIResourceList>(`${this.baseUrl}?offset=${offset}&limit=${this.limit}`)
+    return this.http
+      .get<NamedAPIResourceList>(
+        `${this.baseUrl}?offset=${offset}&limit=${this.limit}`
+      )
       .pipe(
-        map(response => response.results.map(
-          (resource, index) => new Pokemon(offset + index + 1, resource.name)
-        )),
+        map((response) =>
+          response.results.map(
+            (resource, index) => new Pokemon(offset + index + 1, resource.name)
+          )
+        ),
         catchError(this.errorResponseService.handleError)
       );
   }
 
   getById(id: number): Observable<DetailedPokemon> {
-    return this.http.get(`${this.baseUrl}/${id}`)
-      .pipe(
-        map(response => new DetailedPokemon(response)),
-        catchError(this.errorResponseService.handleError)
-      );
+    return this.http.get(`${this.baseUrl}/${id}`).pipe(
+      map((response) => new DetailedPokemon(response)),
+      catchError(this.errorResponseService.handleError)
+    );
   }
-
 }

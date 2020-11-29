@@ -14,8 +14,9 @@
     <div
       class="wrapper"
       (click)="openModal(pokemon.id)"
-      *ngFor="let pokemon of pokemons | filter: searchText"
+      *ngFor="let pokemon of pokemons$ | async"
     >
+    <!-- *ngFor="let pokemon of pokemons$ | filter: searchText | async" -->
       <div class="card text-center shadow">
         <img
           src="{{ pokemon.sprite }}"
@@ -40,6 +41,7 @@
     type="button"
     (click)="loadMore()"
     [disabled]="isLoading"
+
   >
     <span
       class="spinner-grow spinner-grow-sm"
