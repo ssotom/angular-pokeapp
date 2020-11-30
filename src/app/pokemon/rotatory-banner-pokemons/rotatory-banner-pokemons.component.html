@@ -1,0 +1,11 @@
+<carousel class="custom">
+  <slide *ngFor="let pokemon of pokemons$ | async">
+    <div class="slide text-center">
+      <h6 class="card-title text-uppercase m-0">{{ pokemon.name }}</h6>
+      <img
+        src="{{ pokemon.sprite }}"
+        alt="{{ pokemon.name }}"
+      />
+    </div>
+  </slide>
+</carousel>

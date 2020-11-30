@@ -2,9 +2,14 @@ import { environment } from './../../environments/environment';
 import { NamedAPIResource } from './resource';
 
 export class Pokemon {
+  public isFavorite: boolean;
+  private favoritesByDefault = [1, 3, 4, 7];
   constructor(public id: number, public name: string, public sprite?: string) {
     if (!this.sprite) {
       this.sprite = environment.baseSpriteUrl + this.id + '.png';
+    }
+    if (this.favoritesByDefault.includes(id)) {
+      this.isFavorite = true;
     }
   }
 }

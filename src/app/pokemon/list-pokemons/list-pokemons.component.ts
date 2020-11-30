@@ -51,17 +51,6 @@ export class ListPokemonsComponent implements OnInit {
     });
   }
 
-  loadPokemon(pokemon: Pokemon): void {
-    // this.store.dispatch(load({ id }));
-    // this.store.pipe(select(selectPokemon(), { id })).subscribe((pokemon) => {
-    //   if (this.comparePokemon) {
-    //     this.selectedPokemon2 = pokemon;
-    //   } else {
-    //     this.selectedPokemon = pokemon;
-    //   }
-    // });
-  }
-
   openModal(pokemon: Pokemon): void {
     if (this.comparePokemon) {
       this.selectedPokemon2 = pokemon;

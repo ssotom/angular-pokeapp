@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm py-3">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm py-3 custom">
   <a class="navbar-brand" routerLink="">{{ title }}</a>
   <button
     class="navbar-toggler"
@@ -13,9 +13,28 @@
 
   <div class="collapse navbar-collapse" [collapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a class="nav-link" routerLink="">Pokemons</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [popover]="popTemplate" [outsideClick]="true" #pop="bs-popover">Favorite Pokemons</a>
+      </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="">Pokemon </a>
+        <a class="nav-link" routerLink="info">Info</a>
       </li>
     </ul>
   </div>
 </nav>
+<ng-template #popTemplate>
+  <div class="modal-header border-0 py-0">
+    <button
+      type="button"
+      class="close pull-right"
+      (click)="pop.hide()"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <app-rotatory-banner-pokemons [pokemons$]="pokemons$"></app-rotatory-banner-pokemons>
+</ng-template>
