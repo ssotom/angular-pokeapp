@@ -27,7 +27,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ListPokemonsComponent } from './pokemon/list-pokemons/list-pokemons.component';
 import { ShowPokemonComponent } from './pokemon/show-pokemon/show-pokemon.component';
 import { ComparePokemonsComponent } from './pokemon/compare-pokemons/compare-pokemons.component';
-import { RotatoryBannerPokemonsComponent } from './pokemon/rotatory-banner-pokemons/rotatory-banner-pokemons.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +35,7 @@ import { RotatoryBannerPokemonsComponent } from './pokemon/rotatory-banner-pokem
     NavbarComponent,
     ListPokemonsComponent,
     ShowPokemonComponent,
-    ComparePokemonsComponent,
-    RotatoryBannerPokemonsComponent
+    ComparePokemonsComponent
   ],
   imports: [
     BrowserModule,
